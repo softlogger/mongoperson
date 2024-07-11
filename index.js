@@ -119,6 +119,18 @@ app.delete('/persons/:id', async (req, res) => {
   }
 });
 
+// Route to fetch logs from MongoDB
+app.get('/logs', async (req, res) => {
+  try {
+    const db = mongoClient.db('logs');
+    const logs = await db.collection('transactions').find().toArray();
+    res.json(logs);
+  } catch (err) {
+    console.error('Error fetching logs', err);
+    res.status(500).send('Error fetching logs');
+  }
+});
+
 // Serve index.html for all other routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));

@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const firstNameInput = document.getElementById('first-name');
     const lastNameInput = document.getElementById('last-name');
     const personsTableBody = document.querySelector('#persons-table tbody');
+    const logList = document.getElementById('log-list');
 
     // Fetch and display persons
     const fetchPersons = async () => {
@@ -31,6 +32,25 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         } catch (error) {
             console.error('Error fetching persons:', error);
+        }
+    };
+
+    // Fetch and display logs
+    const fetchLogs = async () => {
+        try {
+            const response = await fetch(`${API_URL}/logs`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const logs = await response.json();
+            logList.innerHTML = '';
+            logs.forEach(log => {
+                const logItem = document.createElement('li');
+                logItem.textContent = `[${log.timestamp}] ${log.operation}: ${JSON.stringify(log.data)}`;
+                logList.appendChild(logItem);
+            });
+        } catch (error) {
+            console.error('Error fetching logs:', error);
         }
     };
 
@@ -62,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             form.reset();
             fetchPersons();
+            fetchLogs();
         } catch (error) {
             console.error('Error saving person:', error);
         }
@@ -93,11 +114,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'DELETE'
             });
             fetchPersons();
+            fetchLogs();
         } catch (error) {
             console.error('Error deleting person:', error);
         }
     };
 
-    // Initial fetch of persons
+    // Initial fetch of persons and logs
     fetchPersons();
+    fetchLogs();
 });
