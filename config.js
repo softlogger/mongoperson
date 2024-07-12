@@ -1,8 +1,8 @@
 
   module.exports = {
     sqlConfig: {
-        user: 'softlogger',
-        password: '1Pavanyas',  // Replace with your actual password
+        user: 'USERNAME',
+        password: 'PASSWORD',  // Replace with your actual password
         server: 'je5jojrsbv.database.windows.net',
         database: 'PavanBank',
         port: 1433,
@@ -13,6 +13,6 @@
             trustServerCertificate: true
         }
     },
-    mongoUri: "mongodb+srv://pilsner:1Mavanyas@cluster0.a0nybom.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"  // Replace with your actual MongoDB URI
+    mongoUri: "mongodb+srv://pilsner:PASSWORD@cluster0.a0nybom.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"  // Replace with your actual MongoDB URI
 };
 
